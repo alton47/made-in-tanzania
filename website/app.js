@@ -194,3 +194,30 @@ function applyFilters() {
 
   renderProjects(filtered);
 }
+
+/* ── LETTER NAV ── */
+function buildLetterNav() {
+  const nav = document.getElementById("letterNav");
+  const letters = [
+    ...new Set(ALL_PROJECTS.map((p) => p.letter.toUpperCase())),
+  ].sort();
+  letters.forEach((l) => {
+    const a = document.createElement("a");
+    a.className = "letter-nav-item";
+    a.href = `#letter-${l}`;
+    a.textContent = l;
+    nav.appendChild(a);
+  });
+}
+
+/* ── SCROLL ── */
+function setupScroll() {
+  const nav = document.getElementById("nav");
+  window.addEventListener(
+    "scroll",
+    () => {
+      nav.classList.toggle("scrolled", window.scrollY > 20);
+    },
+    { passive: true },
+  );
+}
