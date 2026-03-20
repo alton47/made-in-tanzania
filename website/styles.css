@@ -1,0 +1,72 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* base */
+  --bg: #07080a;
+  --s1: #0d0f11;
+  --s2: #111418;
+  --s3: #161b20;
+  --b1: #1c2128;
+  --b2: #252d37;
+  --b3: #303c4a;
+  --tx: #eef1f5;
+  --mu: #7a8899;
+  --mu2: #4d5d6e;
+  --mu3: #2d3844;
+
+  /* Tanzania flag accents */
+  --tz-green: #009f4d;
+  --tz-gold: #f5b800;
+  --tz-blue: #1eb4d4;
+  --tz-black: #1a1a1a;
+
+  /* functional */
+  --ac: #1eb4d4; /* cyan-blue — primary */
+  --ac2: #00d4aa; /* teal — secondary */
+  --gn: #009f4d; /* tz green */
+  --am: #f5b800; /* tz gold */
+  --rd: #ff4f6a;
+  --pu: #a78bfa;
+
+  /* typography */
+  --mono: "JetBrains Mono", monospace;
+  --sans: "Inter", sans-serif;
+  --disp: "Inter", sans-serif;
+
+  /* radius */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--sans);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--b2);
+  border-radius: 10px;
+}
