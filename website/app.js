@@ -102,3 +102,95 @@ function buildCard(p, delay) {
     </div>
   `;
 }
+
+/* ── FILTERS ── */
+function buildFilters(techSet) {
+  const wrap = document.getElementById("filterWrap");
+
+  // Pick top categories (those with 2+ projects)
+  const techCount = {};
+  ALL_PROJECTS.forEach((p) => {
+    p.tech.forEach((t) => {
+      techCount[t] = (techCount[t] || 0) + 1;
+    });
+  });
+
+  const popular = Object.entries(techCount)
+    .filter(([, c]) => c >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([t]) => t);
+
+  popular.forEach((tech) => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.dataset.filter = tech;
+    btn.textContent = tech;
+    btn.addEventListener("click", () => setFilter(tech, btn));
+    wrap.appendChild(btn);
+  });
+}
+
+function setFilter(filter, btnEl) {
+  activeFilter = filter;
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach((b) => b.classList.remove("active"));
+  btnEl.classList.add("active");
+  applyFilters();
+}
+
+/* ── SEARCH ── */
+function setupSearch() {
+  const input = document.getElementById("searchInput");
+  const kbd = document.getElementById("searchKbd");
+
+  input.addEventListener("input", (e) => {
+    searchQuery = e.target.value.toLowerCase();
+    applyFilters();
+  });
+
+  // Keyboard shortcut "/"
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== input) {
+      e.preventDefault();
+      input.focus();
+    }
+    if (e.key === "Escape") {
+      input.blur();
+      input.value = "";
+      searchQuery = "";
+      applyFilters();
+    }
+  });
+}
+
+window.clearSearch = function () {
+  document.getElementById("searchInput").value = "";
+  searchQuery = "";
+  activeFilter = "all";
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.filter === "all"));
+  applyFilters();
+};
+
+function applyFilters() {
+  let filtered = ALL_PROJECTS;
+
+  if (activeFilter !== "all") {
+    filtered = filtered.filter((p) => p.tech.includes(activeFilter));
+  }
+
+  if (searchQuery) {
+    filtered = filtered.filter(
+      (p) =>
+        p.name.toLowerCase().includes(searchQuery) ||
+        p.description.toLowerCase().includes(searchQuery) ||
+        p.author.toLowerCase().includes(searchQuery) ||
+        p.tech.some((t) => t.toLowerCase().includes(searchQuery)),
+    );
+  }
+
+  renderProjects(filtered);
+}
