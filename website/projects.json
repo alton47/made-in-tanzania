@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Artemis",
+    "description": "A community package-based tool that simplifies carrying out scans and pentests upon certain scope while performing security penetration testing and researches.",
+    "emoji": "🐍",
+    "tech": ["Python", "Security"],
+    "author": "tahaafarooq",
+    "authorUrl": "https://github.com/tahaafarooq",
+    "repo": "https://github.com/tahaafarooq/Artemis",
+    "stars": 0,
+    "letter": "A"
+  }
+]
